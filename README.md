@@ -12,5 +12,5 @@
  The web app also contains a user system with login authentication and logout functionality.
 
  App was done as a collaboration with the following individuals:
- [Ronan Manoj](https://github.com/Ronmantech).
- [Bowen Lin](https://github.com/Bowenlinnn).
+- [Ronan Manoj](https://github.com/Ronmantech).
+- [Bowen Lin](https://github.com/Bowenlinnn).
