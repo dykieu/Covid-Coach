@@ -1,0 +1,20 @@
+extends layout
+block content
+    .container.text-center
+        .jumbotron
+            h1 NEWS
+            p= currentDate.month + "/" + currentDate.day + "/" + currentDate.year
+            hr
+        container#myData
+            .jumbotron
+                each n in newsContent
+                    .container.article
+                        .row.justify-content-center
+                            .col-lg-8
+                                h3.mt-4= n.title
+                                if (n.author != null)
+                                    p= n.author
+                                hr
+                                p.lead= n.description
+                                a(href=n.link) read more
+                                hr

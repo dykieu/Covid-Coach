@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .container
+    .jumbotron.text-center
+      h1= title
+      p View your #{title}
+      .container.emp-profile.text-center
+        form(method='get')
+          .profile-img
+            img(src='https://ssl.gstatic.com/accounts/ui/avatar_2x.png', alt='')
+          #myTabContent
+            #home.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='home-tab')
+              p Name: #{name}
+              p Email: #{email}
+    if (msg)
+      .container.allposts
+        h3 recent posts
+        for post in msg
+          .container.recentpost
+            h4= post.title
+            p= post.Msg
+    else
+      h3 no messages

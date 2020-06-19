@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  .container.text-center
+    .container
+      .d-flex.justify-content-center.h-100
+        .card#loginCard
+          .card-header.signUpHeader
+            h3 Register
+          .card-body
+            form(method='POST' action='/register')
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.fas.fa-user
+                input.form-control(type='text', placeholder='Name', name='name' required='')
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.fas.fa-user
+                input.form-control(type='text', placeholder='Email', name='email' required='')
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.fas.fa-key
+                input.form-control(type='password', placeholder='Password', name='password' required='')
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.fas.fa-key
+                input.form-control(type='password', placeholder='Confirm Password', name='confirmPassword' required='')
+              .form-group
+                input.btn.float-right.login_btn(type='submit', value='sign up')
+          .card-footer
+            .d-flex.justify-content-center.links
+              | Have an account?
+              a(href='login') log in

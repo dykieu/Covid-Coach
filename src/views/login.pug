@@ -1,0 +1,27 @@
+extends layout
+
+block content
+	.container.text-center#login
+		.container
+			.d-flex.justify-content-center.h-100
+				.card#loginCard
+					.card-header
+						h3 Login
+					.card-body
+						form(method='POST' action='/login')
+							.input-group.form-group
+								.input-group-prepend
+									span.input-group-text
+										i.fas.fa-user
+								input.form-control(type='text', placeholder='Email', name='email')
+							.input-group.form-group
+								.input-group-prepend
+									span.input-group-text
+										i.fas.fa-key
+								input.form-control(type='password', placeholder='Password', name='password')
+							.form-group
+								input.btn.float-right.login_btn(type='submit', value='Login')
+					.card-footer
+						.d-flex.justify-content-center.links
+							| Don't have an account?
+							a(href='register') Sign Up

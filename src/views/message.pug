@@ -1,0 +1,106 @@
+extends layout
+
+block content
+  script(type='text/javascript', src='javascripts/jquery-3.4.1.slim.min.js', charset='utf-8')
+  script(type='text/javascript', src='javascripts/index.js', charset='utf-8')
+  .container
+    .jumbotron
+      .text-center
+        h1 Welcome to #{title}
+        p Show user messages/posts here
+    .jumbotron
+      .scrollBar
+        .container.justify-content-center.col-md-10#aPost
+          section#msgScroll
+            each msg in boardContent
+              .banner#mbTitle
+                h3= msg.title
+              .row.col-md-12
+                .media.comment-box
+                  .media-left
+                    a(href='#')
+                      img.img-responsive.user-photo(src='https://ssl.gstatic.com/accounts/ui/avatar_2x.png')
+                    if (msg.authMsg == 1)
+                      .closemsg
+                        form(action="/message" method='POST')
+                          input(type="hidden" name='whatToDel' value=`${msg.id}`)
+                          button(type='submit')#msgdel delete
+                        button.editmsg(type='button' value=`${msg.id}`)#msgdel Edit
+                  .media-body
+                    if (msg.authMsg == 1)
+                      h4.media-heading= msg.name
+                        span(class='close')#closemsg2
+                          form(action="/message" method='POST')
+                            input(type="hidden" name='whatToDel' value=`${msg.id}`)
+                            button(type='submit') X
+                    else
+                      h4.media-heading= msg.name
+                    p= msg.Msg
+                      if (msg.authMsg == 1)
+                        span
+                          button.editmsg(type='button' value=`${msg.id}`)#editmsg2 edit
+                    each item in msg.comments
+                      .media(style="margin-bottom:1em")
+                        .media-left
+                          a(href='#')
+                            img.img-responsive.user-photo(src='https://ssl.gstatic.com/accounts/ui/avatar_2x.png')
+                        .media-body
+                          if (item.authCmt == 1)
+                            h4.media-heading#commentHeader #{item.from}
+                              span(class='close')
+                                form(action="/message" method='POST')
+                                  input(type="hidden" name='commentToDel' value=`${item.id}`)
+                                  button(type='submit')#cmtdel X
+                          else
+                            h4.media-heading #{item.from}
+                          p
+                            | #{item.content}
+                    if (currentUser)
+                      div(data-id=msg.id class="comment") COMMENT
+                      form.form-horizontal.commentForm(action="/message",method="post")
+                        div(style="margin-top:12px")
+                          div(class=`textareaContent${msg.id}` style="display:none")
+                            textarea.form-control.commentbox(rows="5", cols="5", placeholder="COMMENT" value="", name="content", style="display: inline-block;width: 100%;")
+                            input.form-control(type="text", value=`${msg.id}`, name="parentId", style="opacity:0")
+                          div(style="text-align:right;padding:2px;cursor:pointer;display:none;margin-bottom:2em" class=`Done${msg.id}`) 
+                            button(type="submit" ) post
+                            button.cancelComment(type="button" id=`${msg.id}` value=`${msg.id}`) cancel
+                      .text-center(class=`messageEdit${msg.id}` style="padding:12px;margin-top:6px;width:90%;border:1px solid #e9e9e9;display:none;margin-left: 5%")
+                        form.form-horizontal(action="/message",method="post" id=`myedit${msg.id}`)
+                            div.form-group.col-lg-12
+                                div.col-lg-12
+                                    input.form-control(type="text", value="", name="editTitle", placeholder="Edit Title" required)
+                            div.form-group
+                                div.col-lg-12
+                                    textarea.form-control(rows="5", cols="5", value="", name="editMsg", placeholder="Edit message" required)
+                            div.form-group
+                                div.col-lg-12
+                                    input(type="hidden" name='whatToEdit' value=`${msg.id}`)
+                                    button(type="submit") post
+                                    button.cancelEdit(type="button", id=`cancel${msg.id}` value=msg.id) cancel
+                    else
+                      .justify-content-center.text-right
+                        a.btn.btn-outline-dark.btn-sm#loginbtn(href='login') Login to post a comment.
+              hr
+      if (currentUser)
+        .text-center
+          button(type="button" id="ask") Post a Message!
+        .text-center(class="messageform" style="padding:12px;margin-top:6px;width:60%;border:1px solid #e9e9e9;display:none;margin-left: 20%")
+          form.form-horizontal(action="/message",method="post" id="myform")
+              div.form-group.col-lg-12
+                  div.col-lg-12
+                      input.form-control(type="text", value="", name="articleTitle", placeholder="Article Title")
+              div.form-group
+                  div.col-lg-12
+                      textarea.form-control(rows="5", cols="5", value="", name="question", placeholder="enter a message")
+              div.form-group
+                  div.col-lg-12
+                      button(type="submit") post
+                      button(type="button", id="cancel" ) cancel
+      else
+        .text-center
+          a.btn.btn-outline-dark.btn-sm#loginbtn(href='login') Login to post a message.
+
+
+  script( type='text/javascript', src='javascripts/jquery-3.4.1.slim.min.js', charset='utf-8')
+  script( type='text/javascript', src='javascripts/index.js', charset='utf-8')

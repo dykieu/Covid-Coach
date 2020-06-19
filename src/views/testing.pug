@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  script(type='text/javascript' src='javascripts/jquery-3.4.1.slim.min.js' charset='utf-8')
+  .content
+    .container.text-center
+      .jumbotron
+        h1 Welcome to #{title}
+        hr
+    .container.text-center
+      .jumbotron
+        h3 COVID-19 Testing Locations by State
+        h4 Disclaimer: Testing sites are frequent to change; there may be more sites than are listed
+        hr
+        p Enter state to find testing sites near you
+        .col-md-8.text-center#tipForm
+          form(id='myForm')
+            input.form-control#contentPull(type='text' aria-label='Large' aria-describedby='inputGroup-sizing-sm' placeholder='Enter 2 letter state code here' class='StateClassValue' onchange='fetchData(this.value)')
+            button.btn.btn-light(type='button' class='butUpdateStat') Update
+        br
+        .container-fluid
+          canvas#chartContainer
+    .container
+      .jumbotron.text-center
+        h3 Testing Sites
+        .scrollBar
+          .container
+            section#scrolly
+              table.table#stateSites
+                thead.thead
+                  tr
+                    th(scope='col') State
+                    th(scope='col') Site Information
+                  tbody
+                    each state in states
+                      tr
+                        td= state.name
+                        td= state.desc
+                        td= state.lang
+                        td= state.locId
+                        td= state.phone
+    .container

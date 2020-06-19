@@ -1,0 +1,25 @@
+section.navigation
+		#mainNavbar.nav.navbar.navbar-expand-lg.navbar-light.fixed-top.py-0
+			a.navbar-brand(href='/') CovidCoach
+			button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+				span.navbar-toggler-icon
+			#navbarSupportedContent.collapse.navbar-collapse.justify-content-end
+				ul.navbar-nav
+					li.nav-item.active
+						a.nav-link(href='/') Home
+						span.sr-only (current)
+					li.nav-item
+						a.nav-link(href='news') News
+					li.nav-item
+						a.nav-link(href='tips') Tips/Safety
+					li.nav-item
+						a.nav-link(href='message') Messages
+					if (currentUser)
+						li
+							a.nav-link(href='profile') Profile
+						li
+							a.nav-link(href='logout') Log out
+					else
+						li
+							a.nav-link(href='login') Login
+							

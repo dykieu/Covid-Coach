@@ -1,0 +1,146 @@
+extends layout
+
+block content
+  script(type='text/javascript' src='javascripts/jquery-3.4.1.slim.min.js' charset='utf-8')
+  .content
+    .container.text-center
+      .jumbotron
+        h1 Welcome to #{title}
+        hr
+    .container.text-center
+      .jumbotron
+        h3 COVID-19 Statistics by State
+        hr
+        p Enter state to learn more about infections, deaths, and tests
+        .col-md-8.text-center#tipForm
+          form(id='myForm')
+            input.form-control#contentPull(type='text' aria-label='Large' aria-describedby='inputGroup-sizing-sm' placeholder='Enter 2 letter state code here' class='StateClassValue' onchange='fetchData(this.value)' required)
+            button.btn.btn-light(type='button' class='butUpdateStat') Update
+        br
+        .container-fluid
+          canvas#chartContainer
+    .container
+      .jumbotron.text-center
+        h3 Statistics for United States
+        each stat in stats
+          h6 Last Updated: #{stat.date}
+          hr 
+          table.table#usStats
+            thead.thead
+              tr
+                th Statstics
+                th Count
+            tbody
+              tr
+                td Total Confirmed Cases: 
+                td= stat.confirmed
+              tr
+                td Total Confirmed Recovered: 
+                td= stat.recovered
+              tr
+                td Total Confirmed Deaths: 
+                td= stat.death
+        hr
+        .scrollBar
+          .container
+            section#scrolly
+              table.table#stateStats
+                thead.thead
+                  tr
+                    th(scope='col') State
+                    th(scope='col') Total Cases
+                    th(scope='col') Cases Today
+                    th(scope='col') Total Deaths
+                    th(scope='col') Deaths Today 
+                  tbody
+                    each state in states
+                      tr
+                        td= state.name
+                        td= state.Totalcases
+                        td= state.case
+                        td= state.Totaldeath
+                        td= state.death
+    .container
+      .jumbotron
+        .text-center
+          h3 General Information
+          hr
+        .text-left
+          h6 Symptoms:
+          ul
+            li People with COVID-19 have experienced a range of symptoms from mild to no symptoms to severe illness and death.
+            li A majority of adults who become ill will develop influenza-like symptoms, including fever and cough (some individuals will go on to develop pneumonia and breathing difficulties).
+            ul
+              li The most common symptoms include fever, cough and shortness of breath.
+            li Symptoms may appear between two to 14 days after exposure.
+          p ** If you are experiencing the symptoms mentioned above, the CDC recommends calling your healthcare provider
+          br
+          hr
+          h6 What should you do?
+          p If you think you may have COVID-19 or have tested positive, stay at home except to get medical care. Stay in touch with your doctor. People with mild symptoms are able to recover at home. 
+          | If you live with others in your home, separate yourself in a separate room and bathroom, if possible, to limit contact with others.
+          br
+          p If you are currently not sick, here are some methods of keeping yourself safe:
+          ul
+            li Social Distancing (Experts recommend a minimum of 6ft)
+            li Wearing protective face masks
+            li Minimize your time outside
+            li Wash your hands
+          br
+          hr
+          h6 Treatment:
+          p ** COVID-19 currently has no cure but possible treatment are:
+          ul
+            li Supportive Care (Supplemental oxygen, fluids and medications standardly used to trea pneumonia)
+            li Experts are currently investigating antivirals
+            li A vaccine is currently being developed/tested
+          p ** Experts at the National Institutes of Health and other organizations have begun work to develop a vaccine for this new strain of coronavirus.
+          hr#endTips
+
+    script(src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0')
+    script(type='text/javascript').
+      function fetchData(){
+        const valueRes = (document.getElementById('contentPull').value).trim().toUpperCase();
+        fetch('/api?' + new URLSearchParams({state:valueRes}), {cache: "no-cache"})
+          .then((response) => {
+            return response.json();
+          }).then((data) => {
+            
+            //- console.log(data.testCount, data.positiveCount);
+            let ctx = document.getElementById('chartContainer').getContext('2d');
+            if(window.bar != undefined) 
+              window.bar.destroy(); 
+            let chart = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: data.date,
+                datasets: [{
+                  label: 'Positive Count',
+                  borderColor: 'blue',
+                  data: data.positiveCount,
+                  fill: false
+                  },{
+                    label: 'Test Count',
+                    borderColor: 'green',
+                    data: data.testCount,
+                    fill: false
+                  },{
+                    label: 'Death Count',
+                    borderColor: 'red',
+                    data: data.deathCount,
+                    fill: false
+                }]
+              }, options: {
+                title: {
+                  display: true,
+                    text: `COVID-19 Statistics for the State of ${valueRes}`
+                }, yAxes: [{
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                  }
+                }]
+              }
+            })
+        });
+      };

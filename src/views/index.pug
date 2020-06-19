@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  .container
+    .jumbotron.text-center
+      h1= title
+      hr
+    .jumbotron.text-center
+      h3 About Covid Coach
+      hr
+      p This website serves as an access point to learn more about the status of Corona Virus (COVID-19).
+      hr#beforeCard
+      // gallery
+      section#gallery
+        .container
+          .row
+            // Card 1
+            .col-lg-4.mb-3
+              .card
+                img.card-img-top(src='https://img.freepik.com/free-vector/blue-breaking-news-tv-background_1017-14201.jpg?size=626&ext=jpg', alt='pic 7')
+                .card-body
+                  h5.card-title News
+                  p.card-text Get the latest news updated everday.
+                  a.btn.btn-outline-success.btn-sm(href='news') read more
+            // card 2
+            .col-lg-4.mb-3
+              .card
+                img.card-img-top(src='https://www.avepoint.com/blog/wp-content/uploads/2019/01/helpful-tips-picture-id933100878.jpg', alt='pic 8')
+                .card-body
+                  h5.card-title Tips
+                  p.card-text Get tips and the latest statistics.
+                  a.btn.btn-outline-success.btn-sm(href='tips') read more
+            // card 3
+            .col-lg-4.mb-3
+              .card
+                img.card-img-top(src='https://d33v4339jhl8k0.cloudfront.net/docs/assets/59de6bbc2c7d3a40f0ed605f/images/5a5e3e000428631938010903/file-4Lg6BVVZqr.png', alt='pic 9')
+                .card-body
+                  h5.card-title Message Board
+                  p.card-text Get into contact with other individuals!
+                  a.btn.btn-outline-success.btn-sm(href='message') read more
