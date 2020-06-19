@@ -11,6 +11,14 @@
 
  The web app also contains a user system with login authentication and logout functionality.
 
+ The web app utilizes the following:
+ * NodeJS
+ * Express
+ * MongoDB
+ * Javascript
+ * Jade/Pug
+ * Css
+
  App was done as a collaboration with the following individuals:
 - [Ronan Manoj](https://github.com/Ronmantech).
 - [Bowen Lin](https://github.com/Bowenlinnn).
