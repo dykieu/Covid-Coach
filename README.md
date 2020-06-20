@@ -1,4 +1,5 @@
 # Covid-Coach
+### Description / Features
  Web based app about the COVID-19 pandemic.
  The app contains a full backend used to make requests to
  api's and render pages. The app features 3 different webpages
@@ -11,6 +12,7 @@
 
  The web app also contains a user system with login authentication and logout functionality.
 
+### Languages / Libraries / Frameworks 
  The web app utilizes the following:
  * NodeJS
  * Express
@@ -19,6 +21,7 @@
  * Jade/Pug
  * Css
 
+### Collaborations
  App was done as a collaboration with the following individuals:
 - [Ronan Manoj](https://github.com/Ronmantech).
 - [Bowen Lin](https://github.com/Bowenlinnn).
