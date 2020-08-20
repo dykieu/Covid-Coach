@@ -12,7 +12,7 @@
     "npm": "*"
   },
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
